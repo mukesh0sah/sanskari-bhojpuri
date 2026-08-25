@@ -55,6 +55,13 @@ still works, but the visit counter needs an equivalent backend.
   bypass.
 - **Ads are outside the site's control.** They are served by YouTube inside the
   embed. Monetised uploads may show them; nothing here can suppress them.
+- **Background playback is not possible with a YouTube embed.** Mobile browsers
+  stop the embed when the tab is backgrounded or the screen locks, and YouTube
+  treats background play as a Premium-only feature, so no player flag or
+  service worker can keep it running. The site instead resumes automatically
+  when the listener comes back, unless they had paused on purpose. Genuine
+  background audio would require self-hosted audio files served through an
+  `<audio>` element plus the Media Session API.
 - **Titles are hidden, not secret.** The player chrome is turned off so no title
   is drawn on screen, and clicks on the video panel are swallowed so it cannot
   navigate out to YouTube. The video IDs are still visible to anyone who opens
