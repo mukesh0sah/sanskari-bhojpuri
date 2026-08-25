@@ -56,6 +56,8 @@ export function useRadio(): Radio {
   /** Set immediately so the player can always be torn down, ready or not. */
   const instanceRef = useRef<YTPlayer | null>(null)
   const awaitingSoundRef = useRef(false)
+  /** Set when the listener pauses on purpose, so returning does not override it. */
+  const userPausedRef = useRef(false)
   const errorCountRef = useRef(0)
   /** Track count is needed to pick a random position if the station stalls. */
   const sourceTracksRef = useRef<string[]>([])
@@ -245,6 +247,37 @@ export function useRadio(): Radio {
     }
   }, [state.awaitingSound])
 
+  /*
+   * Mobile browsers pause the YouTube embed as soon as the tab is backgrounded
+   * or the screen locks, and that cannot be prevented from here. The next best
+   * thing is to pick the station back up the moment the listener returns, unless
+   * they had paused it deliberately.
+   */
+  useEffect(() => {
+    if (state.status !== 'ready') return
+    let resumeTimer: number | undefined
+
+    const resumeIfVisible = () => {
+      if (document.visibilityState !== 'visible') return
+      if (userPausedRef.current) return
+      window.clearTimeout(resumeTimer)
+      // The embed needs a beat after the tab is shown before it accepts play().
+      resumeTimer = window.setTimeout(() => {
+        const player = playerRef.current
+        if (!player) return
+        const playerState = player.getPlayerState()
+        if (playerState === PlayerState.PLAYING || playerState === PlayerState.BUFFERING) return
+        player.playVideo()
+      }, 350)
+    }
+
+    document.addEventListener('visibilitychange', resumeIfVisible)
+    return () => {
+      document.removeEventListener('visibilitychange', resumeIfVisible)
+      window.clearTimeout(resumeTimer)
+    }
+  }, [state.status])
+
   useEffect(() => {
     if (state.status !== 'ready') return
     const id = window.setInterval(() => {
@@ -276,8 +309,13 @@ export function useRadio(): Radio {
       awaitingSoundRef.current = false
       setState((prev) => ({ ...prev, awaitingSound: false, isMuted: false }))
     }
-    if (player.getPlayerState() === PlayerState.PLAYING) player.pauseVideo()
-    else player.playVideo()
+    if (player.getPlayerState() === PlayerState.PLAYING) {
+      userPausedRef.current = true
+      player.pauseVideo()
+    } else {
+      userPausedRef.current = false
+      player.playVideo()
+    }
   }, [])
 
   const skip = useCallback(() => {

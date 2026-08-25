@@ -13,13 +13,3 @@ export const PLAYLIST_ID = 'PLd3Xm1tQ0C8U'
 export const AUTOPLAY_GRACE_MS = 1600
 
 export const CONTACT_EMAIL = 'mukeshsah707@gmail.com'
-
-/** Publisher ID from the AdSense site snippet. */
-export const ADSENSE_CLIENT = 'ca-pub-2769211637439236'
-
-/**
- * Display ad unit slot (Ads → By ad unit → Display ads → Get code → data-ad-slot).
- * The top banner reserves space either way; ads only fill once this is set and
- * the unit is approved for the live domain.
- */
-export const ADSENSE_BANNER_SLOT = ''

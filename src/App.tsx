@@ -1,4 +1,4 @@
-import { BannerAd } from './BannerAd'
+import { useState } from 'react'
 import {
   MutedIcon,
   PauseIcon,
@@ -11,7 +11,6 @@ import {
 import { CONTACT_EMAIL } from './config'
 import { useRadio } from './useRadio'
 import { useVisitCount } from './useVisitCount'
-import { useState } from 'react'
 
 function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds <= 0) return '0:00'
@@ -43,8 +42,6 @@ export default function App() {
       <img className="stage__art" src="/backdrop.jpg" alt="" width={1536} height={1024} />
       <div className="stage__vignette" aria-hidden="true" />
       <div className="stage__grain" aria-hidden="true" />
-
-      <BannerAd />
 
       <header className="topbar">
         <span className="visits" aria-live="polite">

@@ -72,44 +72,6 @@ body {
   flex: 1;
 }
 
-/* ---------- top ad banner ---------- */
-
-.adband {
-  position: relative;
-  z-index: 4;
-  flex-shrink: 0;
-  width: 100%;
-  padding: 0.45rem 0.5rem 0;
-  background: linear-gradient(to bottom, rgba(26, 14, 8, 0.72), rgba(26, 14, 8, 0.2));
-}
-
-.adband__inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 50rem;
-  min-height: 5.5rem;
-  margin: 0 auto;
-  overflow: hidden;
-  border: 1px solid var(--glass-edge);
-  border-radius: 0.75rem;
-  background: rgba(10, 5, 2, 0.45);
-}
-
-.adband__inner .adsbygoogle {
-  width: 100%;
-  min-height: 5.5rem;
-}
-
-.adband__fallback {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(253, 242, 224, 0.35);
-}
-
 /* ---------- header ---------- */
 
 .topbar {
@@ -119,7 +81,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 1.25rem 0;
+  padding: 1rem 1.25rem 0;
 }
 
 .visits {
@@ -183,8 +145,7 @@ body {
   position: relative;
   z-index: 1;
   min-height: 0;
-  /* Kept lower so the top ad banner has clear room. */
-  padding: 1.25rem 1.5rem 0;
+  padding: 2rem 1.5rem 0;
   overflow: hidden;
   text-align: center;
 }
@@ -193,8 +154,9 @@ body {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  /* Slightly smaller so ad + wordmark + player still fit one viewport. */
-  font-size: clamp(2.1rem, min(14vw, 11dvh), 7rem);
+  /* Tracks viewport height as well as width so the control bar is never pushed
+     off-screen on short or landscape windows. */
+  font-size: clamp(2.4rem, min(16vw, 13dvh), 8rem);
   line-height: 0.92;
   letter-spacing: -0.01em;
   text-shadow: 0 8px 28px rgba(26, 14, 8, 0.72);
@@ -478,15 +440,11 @@ body {
 
 @media (min-width: 640px) {
   .topbar {
-    padding: 0.85rem 2rem 0;
+    padding: 1.5rem 2rem 0;
   }
 
   .wordmark {
-    padding-top: 1.5rem;
-  }
-
-  .adband__inner {
-    min-height: 5.75rem;
+    padding-top: 3rem;
   }
 
   .bar__time,
