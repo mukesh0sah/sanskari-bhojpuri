@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sanskari-bhojpuri
+  labels:
+    app: sanskari-bhojpuri
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sanskari-bhojpuri
+  template:
+    metadata:
+      labels:
+        app: sanskari-bhojpuri
+    spec:
+      containers:
+        - name: web
+          image: sanskari-bhojpuri:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi

@@ -1,0 +1,7 @@
+node_modules
+dist
+.git
+.vite
+k8s
+*.local
+.DS_Store
