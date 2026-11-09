@@ -4,6 +4,8 @@ metadata:
   name: sanskari-bhojpuri
   labels:
     app: sanskari-bhojpuri
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     app: sanskari-bhojpuri
