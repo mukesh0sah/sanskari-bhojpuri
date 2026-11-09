@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sanskari-bhojpuri
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
       app: sanskari-bhojpuri
