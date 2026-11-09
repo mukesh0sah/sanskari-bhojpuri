@@ -17,4 +17,4 @@ spec:
           command:
             - sh
             - -c
-            - wget -qO- http://sanskari-bhojpuri | grep -q "always on" && echo "SMOKE TEST PASSED"
+            - wget -qO- http://sanskari-bhojpuri | grep -q "this text is not on the page" && echo "SMOKE TEST PASSED"
