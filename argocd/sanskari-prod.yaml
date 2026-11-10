@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sanskari-bhojpuri
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mukesh0sah/sanskari-bhojpuri.git
+    targetRevision: HEAD
+    path: k8s/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sanskari-bhojpuri
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      enabled: true
+      selfHeal: true
+      prune: false
